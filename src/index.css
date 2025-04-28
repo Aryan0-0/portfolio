@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --terminal-green: #4af626;
+  --terminal-orange: #ffb000;
+  --terminal-bg: #0a0a0a;
+  --terminal-dark-bg: #1a1a1a;
+  --terminal-red: #ff3333;
+  --terminal-blue: #5c9eff;
+  --terminal-white: #ffffff;
+  --terminal-gray: #808080;
+  --terminal-glow: 0 0 10px rgba(74, 246, 38, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--terminal-bg);
+  color: var(--terminal-green);
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@layer components {
+  .terminal-container {
+    @apply min-h-screen bg-[var(--terminal-bg)] p-4 md:p-6 lg:p-8 overflow-hidden relative;
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.8);
+  }
+  
+  .terminal-line {
+    @apply flex items-start;
+    text-shadow: var(--terminal-glow);
+  }
+  
+  .terminal-prompt {
+    @apply text-[var(--terminal-orange)] mr-2;
+    text-shadow: 0 0 8px rgba(255, 176, 0, 0.4);
+  }
+  
+  .terminal-text {
+    @apply text-[var(--terminal-green)];
+  }
+  
+  .terminal-header {
+    @apply text-xl md:text-2xl font-bold mb-4;
+    letter-spacing: 1px;
+  }
+  
+  .terminal-nav-item {
+    @apply cursor-pointer transition-all duration-300 p-2 rounded;
+    border: 1px solid transparent;
+  }
+  
+  .terminal-nav-item:hover {
+    @apply bg-[var(--terminal-dark-bg)];
+    border-color: var(--terminal-green);
+    box-shadow: var(--terminal-glow);
+  }
+  
+  .terminal-nav-item.active {
+    @apply text-[var(--terminal-orange)] bg-[var(--terminal-dark-bg)];
+    border-color: var(--terminal-orange);
+    box-shadow: 0 0 10px rgba(255, 176, 0, 0.4);
+  }
+  
+  .terminal-section {
+    @apply my-8 p-6 rounded;
+    background: linear-gradient(
+      to bottom,
+      var(--terminal-dark-bg) 0%,
+      var(--terminal-bg) 100%
+    );
+    border: 1px solid var(--terminal-green);
+    box-shadow: var(--terminal-glow);
+  }
+  
+  .blink {
+    animation: blink 1s step-end infinite;
+  }
+  
+  .glitch {
+    animation: glitch 0.3s ease-in-out;
+  }
+  
+  .scan-lines {
+    @apply pointer-events-none fixed top-0 left-0 w-full h-full z-10;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.1) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    background-size: 100% 4px;
+    opacity: 0.15;
+  }
+  
+  .crt-flicker {
+    @apply pointer-events-none fixed top-0 left-0 w-full h-full z-20;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(74, 246, 38, 0.15) 0%,
+      rgba(0, 0, 0, 0) 70%
+    );
+    animation: flicker 5s infinite;
+  }
+
+  .project-card {
+    @apply border border-[var(--terminal-green)] p-4 rounded transition-all duration-300;
+    background: rgba(26, 26, 26, 0.6);
+  }
+
+  .project-card:hover {
+    @apply border-[var(--terminal-orange)];
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 176, 0, 0.3);
+  }
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    opacity: 0.8;
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translate(2px, 2px);
+    opacity: 0.8;
+  }
+  80% {
+    transform: translate(2px, -2px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.27861; }
+  5% { opacity: 0.34769; }
+  10% { opacity: 0.23604; }
+  15% { opacity: 0.90626; }
+  20% { opacity: 0.18128; }
+  25% { opacity: 0.83891; }
+  30% { opacity: 0.65583; }
+  35% { opacity: 0.67807; }
+  40% { opacity: 0.26559; }
+  45% { opacity: 0.84693; }
+  50% { opacity: 0.96019; }
+  55% { opacity: 0.08594; }
+  60% { opacity: 0.20313; }
+  65% { opacity: 0.71988; }
+  70% { opacity: 0.53455; }
+  75% { opacity: 0.37288; }
+  80% { opacity: 0.71428; }
+  85% { opacity: 0.70419; }
+  90% { opacity: 0.7003; }
+  95% { opacity: 0.36108; }
+  100% { opacity: 0.24387; }
+}
+
+@keyframes powerOn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.power-on {
+  animation: powerOn 0.5s ease-out;
+}
